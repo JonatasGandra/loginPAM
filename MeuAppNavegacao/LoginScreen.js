@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Button, TextInput, Text, Alert, StyleSheet, Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = React.useState('');
@@ -9,14 +10,20 @@ export default function LoginScreen({ navigation }) {
   const validUsername = 'jota';
   const validPassword = '12345';
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!username || !password) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
     }
 
     if (username === validUsername && password === validPassword) {
-      navigation.replace('Home'); // Navega para a tela "Home" se as credenciais estiverem corretas
+      try {
+        await AsyncStorage.setItem('authToken', 'jotaToken'); // Salva um token
+        navigation.replace('Home'); // Navega para a tela "Home" se as credenciais estiverem corretas
+      } catch (error) {
+        console.error("Erro ao salvar o token:", error);
+        Alert.alert('Erro', 'Erro ao realizar o login. Tente novamente.');
+      }
     } else {
       Alert.alert('Erro', 'Usuário ou senha incorretos.');
     }
