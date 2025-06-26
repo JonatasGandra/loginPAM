@@ -7,24 +7,28 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function LoginScreen({ navigation }) {
   const [usu, setUsu] = useState('');
-  const [sn, setSn] = useState('');
+  const [sn, setSn] = useState('');closedcd
   const [mensagemErro, setMensagemErro] = useState('');
 
+  // ✅ Verificar se o usuário já está logado
   useEffect(() => {
     const verificarLoginSalvo = async () => {
       try {
         const value = await AsyncStorage.getItem('in');
         console.log('Valor salvo:', value);
         if (value === 'true') {
-          navigation.replace('Home');
+          navigation.replace('Home'); // troca de tela sem permitir voltar ao login
         }
       } catch (error) {
         console.log('Erro ao verificar AsyncStorage:', error);
       }
     };
 verificarLoginSalvo();
+
+    verificarLoginSalvo();
   }, []);
 
+  // ✅ Função de login
   const verificar = async () => {
     if (sn !== '12345') {
       setMensagemErro('Senha incorreta!');
@@ -38,7 +42,7 @@ verificarLoginSalvo();
     setMensagemErro('');
     try {
       await setState('true');
-      navigation.replace('Home');
+      navigation.replace('Home'); // evita voltar para login
     } catch (error) {
       console.log('Erro ao salvar informações:', error);
     }

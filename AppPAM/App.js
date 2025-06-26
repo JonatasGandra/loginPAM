@@ -26,7 +26,7 @@ export default function App() {
   }, []);
 
   if (isLoggedIn === null) {
-    return null;
+    return null; // ou uma tela de carregamento
   }
 
   return (
