@@ -22,8 +22,7 @@ export default function LoginScreen({ navigation }) {
         console.log('Erro ao verificar AsyncStorage:', error);
       }
     };
-setState
-    verificarLoginSalvo();
+verificarLoginSalvo();
   }, []);
 
   const verificar = async () => {
